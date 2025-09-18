@@ -55,11 +55,11 @@ extra:
     Copyright &copy; 2023 - 2024 Weizhi Wang | 
     <a href="https://github.com/weizhiwang221/cloud-native-journey" target="_blank" rel="noopener">View on GitHub</a>
 
-# 导航
-nav:
-  - Home: index.md
-  - Kubernetes: kubernetes.md
-  - Docker: docker.md
+# # 导航
+# nav:
+#   - Home: index.md
+#   - Kubernetes: kubernetes.md
+#   - Docker: docker.md
 
 # 6. 社交媒体链接 (显示在页面底部)
 extra_css: # 引入自定义CSS文件，用于更高级的美化
