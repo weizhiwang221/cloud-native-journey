@@ -4,7 +4,7 @@ site_description: 一名云计算运维工程师的云原生学习与实践之�
 
 theme:
   #name: material
-  name: gitbook
+  name: windmill
   #custom_dir: docs/overrides # (可选) 用于深度自定义，覆盖主题模板
   # palette:
   #   # 配色方案 - 这是改变观感最直接的方式
