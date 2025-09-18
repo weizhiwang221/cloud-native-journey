@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://weizhiwang221.github.io/cloud-native-journey/</loc>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/%E6%8A%80%E6%9C%AF/docker/</loc>
          <lastmod>2025-09-18</lastmod>
     </url>
     <url>
-         <loc>https://weizhiwang221.github.io/cloud-native-journey/docker/</loc>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/%E6%8A%80%E6%9C%AF/kubernetes/</loc>
          <lastmod>2025-09-18</lastmod>
     </url>
     <url>
-         <loc>https://weizhiwang221.github.io/cloud-native-journey/kubernetes/</loc>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/%E6%95%85%E9%9A%9C/docker%E6%95%85%E9%9A%9C/</loc>
          <lastmod>2025-09-18</lastmod>
     </url>
     <url>
-         <loc>https://weizhiwang221.github.io/cloud-native-journey/Monitoring/efk/</loc>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/%E6%95%85%E9%9A%9C/kubernetes%E6%95%85%E9%9A%9C/</loc>
          <lastmod>2025-09-18</lastmod>
     </url>
     <url>
-         <loc>https://weizhiwang221.github.io/cloud-native-journey/Monitoring/grafana/</loc>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/%E7%9B%91%E6%8E%A7/efk/</loc>
          <lastmod>2025-09-18</lastmod>
     </url>
     <url>
-         <loc>https://weizhiwang221.github.io/cloud-native-journey/Monitoring/prometheus/</loc>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/%E7%9B%91%E6%8E%A7/grafana/</loc>
+         <lastmod>2025-09-18</lastmod>
+    </url>
+    <url>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/%E7%9B%91%E6%8E%A7/prometheus/</loc>
+         <lastmod>2025-09-18</lastmod>
+    </url>
+    <url>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/%E9%A6%96%E9%A1%B5/</loc>
+         <lastmod>2025-09-18</lastmod>
+    </url>
+    <url>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/%E9%A6%96%E9%A1%B5/about/</loc>
          <lastmod>2025-09-18</lastmod>
     </url>
 </urlset>
