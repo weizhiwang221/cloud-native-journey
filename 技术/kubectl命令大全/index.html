@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://weizhiwang221.github.io/cloud-native-journey/%E6%8A%80%E6%9C%AF/kubectl%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
       
       
-        <link rel="prev" href="../kubernetes/">
+        <link rel="prev" href="../docker/">
       
       
-        <link rel="next" href="../../%E6%95%85%E9%9A%9C/kubernetes%E6%95%85%E9%9A%9C/">
+        <link rel="next" href="../kubernetes/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -208,18 +208,17 @@
   
   
   
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../%E9%A6%96%E9%A1%B5/about/" class="md-tabs__link">
-          
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
   
   
-  首页
+    
+  
+  Cloud Native Journey - 个人云原生知识库
 
-        </a>
-      </li>
-    
+      </a>
+    </li>
   
 
       
@@ -253,7 +252,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../%E6%95%85%E9%9A%9C/kubernetes%E6%95%85%E9%9A%9C/" class="md-tabs__link">
+        <a href="../../%E6%95%85%E9%9A%9C/docker%E6%95%85%E9%9A%9C/" class="md-tabs__link">
           
   
   
@@ -273,11 +272,31 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../%E7%9B%91%E6%8E%A7/prometheus/" class="md-tabs__link">
+        <a href="../../%E7%9B%91%E6%8E%A7/efk/" class="md-tabs__link">
           
   
   
   监控
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E9%A6%96%E9%A1%B5/about/" class="md-tabs__link">
+          
+  
+  
+  首页
 
         </a>
       </li>
@@ -330,71 +349,18 @@
   
   
   
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
-        
-          
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    首页
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1">
-            <span class="md-nav__icon md-icon"></span>
-            首页
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
     <li class="md-nav__item">
-      <a href="../../%E9%A6%96%E9%A1%B5/about/" class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    关于
+    Cloud Native Journey - 个人云原生知识库
     
   </span>
   
 
       </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -474,29 +440,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../kubernetes/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    kubernetes
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -521,6 +464,75 @@
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    kubernetes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes%E5%90%84%E4%B8%AA%E7%BB%84%E4%BB%B6%E7%9A%84%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E6%80%A7%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kubernetes各个组件的版本兼容性分析
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8%20Kind%20%E5%9C%A8%205%20%E5%88%86%E9%92%9F%E5%86%85%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%20Kubernetes%20%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    使用 Kind 在 5 分钟内快速部署一个 Kubernetes 高可用集群
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -585,12 +597,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E6%95%85%E9%9A%9C/kubernetes%E6%95%85%E9%9A%9C/" class="md-nav__link">
+      <a href="../../%E6%95%85%E9%9A%9C/docker%E6%95%85%E9%9A%9C/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    kubernetes故障
+    docker故障
     
   </span>
   
@@ -608,12 +620,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E6%95%85%E9%9A%9C/docker%E6%95%85%E9%9A%9C/" class="md-nav__link">
+      <a href="../../%E6%95%85%E9%9A%9C/kubernetes%E6%95%85%E9%9A%9C/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    docker故障
+    kubernetes故障
     
   </span>
   
@@ -683,12 +695,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E7%9B%91%E6%8E%A7/prometheus/" class="md-nav__link">
+      <a href="../../%E7%9B%91%E6%8E%A7/efk/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Prometheus 监控
+    efk.md
     
   </span>
   
@@ -729,12 +741,87 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E7%9B%91%E6%8E%A7/efk/" class="md-nav__link">
+      <a href="../../%E7%9B%91%E6%8E%A7/prometheus/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    efk.md
+    Prometheus 监控
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    首页
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A6%96%E9%A1%B5/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    关于
     
   </span>
   
