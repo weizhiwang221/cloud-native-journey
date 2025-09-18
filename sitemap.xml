@@ -12,4 +12,16 @@
          <loc>https://weizhiwang221.github.io/cloud-native-journey/kubernetes/</loc>
          <lastmod>2025-09-18</lastmod>
     </url>
+    <url>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/Monitoring/efk/</loc>
+         <lastmod>2025-09-18</lastmod>
+    </url>
+    <url>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/Monitoring/grafana/</loc>
+         <lastmod>2025-09-18</lastmod>
+    </url>
+    <url>
+         <loc>https://weizhiwang221.github.io/cloud-native-journey/Monitoring/prometheus/</loc>
+         <lastmod>2025-09-18</lastmod>
+    </url>
 </urlset>
