@@ -1,66 +1,76 @@
 site_name: 云原生之旅
 site_url: https://weizhiwang221.github.io/cloud-native-journey/
-site_description: 一名云计算运维工程师的云原生学习与实践之旅。
 
-# 核心：使用 material 主题
 theme:
-  name: readthedocs # 一个经典、清晰的主题
-  # 自定义logo和网站图标(favicon)，将图片放在 docs/assets/ 目录下
-  # logo: assets/logo.png
-  # favicon: assets/favicon.png 
+  name: material
 
-  # 1. 配色方案 -  Material 主题最亮眼的功能
-  palette:
-    # 配色方案切换器
-    - media: "(prefers-color-scheme: light)" # 浅色模式
-      scheme: default
-      primary: indigo # 主色调：靛蓝
-      accent: indigo  # 强调色：靛蓝
-      toggle:
-        icon: material/brightness-7 # 太阳图标
-        name: Switch to dark mode
-
-    - media: "(prefers-color-scheme: dark)" # 深色模式
-      scheme: slate
-      primary: black # 主色调：黑
-      accent: deep orange  # 强调色：深橙
-      toggle:
-        icon: material/brightness-4 # 月亮图标
-        name: Switch to light mode
-
-  # 2. 字体 - 提升阅读体验
-  font:
-    text: Roboto  # 正文字体
-    code: Roboto Mono # 代码字体
-
-  # 3. 功能特性
-  features:
-    - navigation.tabs # 顶部标签页，非常适合组织多个章节
-    - navigation.sections # 在侧边栏中显示章节
-    - navigation.expand # 默认展开当前页面的章节
-    - search.suggest # 搜索建议
-    - search.highlight # 搜索高亮
-    - content.code.copy # 代码块复制按钮
-    - content.code.annotate # 代码块注释
-
-# 4. 插件
+# 正确配置插件是关键
 plugins:
-  - search # 必须启用搜索插件
-  - awesome-pages # 添加这行来启用自动导航插件
+  - search  # 保留默认的搜索插件
+  - awesome-pages  # 启用 awesome-pages 插件
+# site_name: 云原生之旅
+# site_url: https://weizhiwang221.github.io/cloud-native-journey/
+# site_description: 一名云计算运维工程师的云原生学习与实践之旅。
 
-# 5. 额外定制 - 在页面底部添加版权信息和链接
-extra:
-  generator: false # 是否显示 "Made with MkDocs"
-  copyright: |
-    Copyright &copy; 2023 - 2024 Weizhi Wang | 
-    <a href="https://github.com/weizhiwang221/cloud-native-journey" target="_blank" rel="noopener">View on GitHub</a>
+# # 核心：使用 material 主题
+# theme:
+#   name: readthedocs # 一个经典、清晰的主题
+#   # 自定义logo和网站图标(favicon)，将图片放在 docs/assets/ 目录下
+#   # logo: assets/logo.png
+#   # favicon: assets/favicon.png 
 
-# # 导航
-# nav:
-#   - Home: index.md
-#   - Kubernetes: kubernetes.md
-#   - Docker: docker.md
+#   # 1. 配色方案 -  Material 主题最亮眼的功能
+#   palette:
+#     # 配色方案切换器
+#     - media: "(prefers-color-scheme: light)" # 浅色模式
+#       scheme: default
+#       primary: indigo # 主色调：靛蓝
+#       accent: indigo  # 强调色：靛蓝
+#       toggle:
+#         icon: material/brightness-7 # 太阳图标
+#         name: Switch to dark mode
 
-# 6. 社交媒体链接 (显示在页面底部)
-extra_css: # 引入自定义CSS文件，用于更高级的美化
-  - stylesheets/extra.css
+#     - media: "(prefers-color-scheme: dark)" # 深色模式
+#       scheme: slate
+#       primary: black # 主色调：黑
+#       accent: deep orange  # 强调色：深橙
+#       toggle:
+#         icon: material/brightness-4 # 月亮图标
+#         name: Switch to light mode
+
+#   # 2. 字体 - 提升阅读体验
+#   font:
+#     text: Roboto  # 正文字体
+#     code: Roboto Mono # 代码字体
+
+#   # 3. 功能特性
+#   features:
+#     - navigation.tabs # 顶部标签页，非常适合组织多个章节
+#     - navigation.sections # 在侧边栏中显示章节
+#     - navigation.expand # 默认展开当前页面的章节
+#     - search.suggest # 搜索建议
+#     - search.highlight # 搜索高亮
+#     - content.code.copy # 代码块复制按钮
+#     - content.code.annotate # 代码块注释
+
+# # 4. 插件
+# plugins:
+#   - search # 必须启用搜索插件
+#   - awesome-pages # 添加这行来启用自动导航插件
+
+# # 5. 额外定制 - 在页面底部添加版权信息和链接
+# extra:
+#   generator: false # 是否显示 "Made with MkDocs"
+#   copyright: |
+#     Copyright &copy; 2023 - 2024 Weizhi Wang | 
+#     <a href="https://github.com/weizhiwang221/cloud-native-journey" target="_blank" rel="noopener">View on GitHub</a>
+
+# # # 导航
+# # nav:
+# #   - Home: index.md
+# #   - Kubernetes: kubernetes.md
+# #   - Docker: docker.md
+
+# # 6. 社交媒体链接 (显示在页面底部)
+# extra_css: # 引入自定义CSS文件，用于更高级的美化
+#   - stylesheets/extra.css
