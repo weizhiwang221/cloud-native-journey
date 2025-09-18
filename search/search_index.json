@@ -1,1 +1,1 @@
-{"config":{"lang":["en"],"separator":"[\\s\\-]+","pipeline":["stopWordFilter"]},"docs":[{"location":"","title":"\u8fd9\u662f\u4e00\u4e2a\u9996\u9875","text":""}]}
+{"config":{"lang":["en"],"separator":"[\\s\\-]+","pipeline":["stopWordFilter"]},"docs":[{"location":"","title":"\u8fd9\u662f\u4e00\u4e2a\u9996\u9875","text":""},{"location":"docker/","title":"docker","text":""},{"location":"kubernetes/","title":"kubernetes","text":""}]}
