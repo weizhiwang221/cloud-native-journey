@@ -1,49 +1,51 @@
 site_name: 云原生之旅
 site_url: https://weizhiwang221.github.io/cloud-native-journey/
 site_description: 一名云计算运维工程师的云原生学习与实践之旅。
+gitbook
 
 theme:
-  name: material
+  #name: material
+  name: gitbook
   #custom_dir: docs/overrides # (可选) 用于深度自定义，覆盖主题模板
-  palette:
-    # 配色方案 - 这是改变观感最直接的方式
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: indigo # 主色调：可改为 pink, teal, deep orange, cyan 等
-      accent: indigo  # 强调色
-      toggle:
-        icon: material/brightness-7
-        name: 切换到深色模式
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: black
-      accent: deep orange # 深色模式下的强调色
-      toggle:
-        icon: material/brightness-4
-        name: 切换到浅色模式
+  # palette:
+  #   # 配色方案 - 这是改变观感最直接的方式
+  #   - media: "(prefers-color-scheme: light)"
+  #     scheme: default
+  #     primary: indigo # 主色调：可改为 pink, teal, deep orange, cyan 等
+  #     accent: indigo  # 强调色
+  #     toggle:
+  #       icon: material/brightness-7
+  #       name: 切换到深色模式
+  #   - media: "(prefers-color-scheme: dark)"
+  #     scheme: slate
+  #     primary: black
+  #     accent: deep orange # 深色模式下的强调色
+  #     toggle:
+  #       icon: material/brightness-4
+  #       name: 切换到浅色模式
 
-  # 字体 - 提升高级感
-  font:
-    text: Roboto
-    code: Roboto Mono
+  # # 字体 - 提升高级感
+  # font:
+  #   text: Roboto
+  #   code: Roboto Mono
 
-  # 图标库
-  icon:
-    logo: material/library
+  # # 图标库
+  # icon:
+  #   logo: material/library
 
-  # 功能特性 - 这些开关能极大地改变UI
-  features:
-    - navigation.tabs # 顶部标签页，非常现代
-    - navigation.tabs.sticky #  sticky 标签
-    - navigation.sections # 侧边栏显示章节
-    - navigation.expand # 自动扩展当前章节
-    - navigation.path # 显示当前页面的路径导航
-    - search.suggest # 搜索建议
-    - search.highlight # 搜索高亮
-    - content.tooltips # 内容工具提示
-    - content.code.copy # 代码块复制按钮
-    - content.code.annotate # 代码注释
-    - content.footnote.tooltips # 脚注提示
+  # # 功能特性 - 这些开关能极大地改变UI
+  # features:
+  #   - navigation.tabs # 顶部标签页，非常现代
+  #   - navigation.tabs.sticky #  sticky 标签
+  #   - navigation.sections # 侧边栏显示章节
+  #   - navigation.expand # 自动扩展当前章节
+  #   - navigation.path # 显示当前页面的路径导航
+  #   - search.suggest # 搜索建议
+  #   - search.highlight # 搜索高亮
+  #   - content.tooltips # 内容工具提示
+  #   - content.code.copy # 代码块复制按钮
+  #   - content.code.annotate # 代码注释
+  #   - content.footnote.tooltips # 脚注提示
 
 # 插件
 plugins:
@@ -52,22 +54,22 @@ plugins:
   # - git-revision-date-localized:
   #     locale: zh
 
-# 额外元数据
-extra:
-  generator: false # 不显示 "Made with MkDocs"
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/weizhiwang221
-      name: My GitHub
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/your_handle
-      name: My Twitter
+# # 额外元数据
+# extra:
+#   generator: false # 不显示 "Made with MkDocs"
+#   social:
+#     - icon: fontawesome/brands/github
+#       link: https://github.com/weizhiwang221
+#       name: My GitHub
+#     - icon: fontawesome/brands/twitter
+#       link: https://twitter.com/your_handle
+#       name: My Twitter
 
-# 版权信息
-copyright: |
-  Copyright &copy; 2024 Weizhi Wang | 
-  <a href="https://github.com/weizhiwang221/cloud-native-journey" target="_blank" rel="noopener">View on GitHub</a>
+# # 版权信息
+# copyright: |
+#   Copyright &copy; 2024 Weizhi Wang | 
+#   <a href="https://github.com/weizhiwang221/cloud-native-journey" target="_blank" rel="noopener">View on GitHub</a>
 
-# 自定义CSS - 这是实现“Halo风格”的关键
-extra_css:
-  - stylesheets/extra.css
+# # 自定义CSS - 这是实现“Halo风格”的关键
+# extra_css:
+#   - stylesheets/extra.css
