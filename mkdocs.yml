@@ -4,6 +4,6 @@ theme:
 
 nav:
   - 首页: index.md
-  - kubernetes： kubernetes.md
-  - docker： docker.md
+  - kubernetes: kubernetes.md
+  - docker: docker.md
   # 你可以后续慢慢添加更多导航项
