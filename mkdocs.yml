@@ -1,0 +1,7 @@
+site_name: Cloud Native Journey
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  # 你可以后续慢慢添加更多导航项

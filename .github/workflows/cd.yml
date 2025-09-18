@@ -1,0 +1,35 @@
+name: CD - Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ] # 只在 main 分支的 push 上触发部署
+  # 允许你在 Actions 页面手动触发一次部署
+  workflow_dispatch:
+
+permissions:
+  contents: write # 赋予工作流写入内容的权限，用于推送 gh-pages 分支
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install mkdocs mkdocs-material
+
+      - name: Build the site
+        run: mkdocs build --strict
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub 自动提供的令牌，无需自己配置
+          publish_dir: ./site # MkDocs 构建后的输出目录
