@@ -4,7 +4,7 @@ site_description: 一名云计算运维工程师的云原生学习与实践之�
 
 # 核心：使用 material 主题
 theme:
-  name: material
+  name: readthedocs # 一个经典、清晰的主题
   # 自定义logo和网站图标(favicon)，将图片放在 docs/assets/ 目录下
   # logo: assets/logo.png
   # favicon: assets/favicon.png 
