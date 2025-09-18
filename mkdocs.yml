@@ -46,6 +46,7 @@ theme:
 # 4. 插件
 plugins:
   - search # 必须启用搜索插件
+  - awesome-pages # 添加这行来启用自动导航插件
 
 # 5. 额外定制 - 在页面底部添加版权信息和链接
 extra:
