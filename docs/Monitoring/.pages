@@ -1,0 +1,4 @@
+nav:
+  - prometheus.md
+  - grafana.md
+  - efk.md

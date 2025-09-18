@@ -4,4 +4,3 @@ nav:
   - kubernetes.md  # Kubernetes 排第二
   - docker.md      # Docker 排第三
   - Monitoring:    # 创建一个名为 "Monitoring" 的目录
-    - prometheus.md # 这个文件会在 Monitoring 下拉菜单中
