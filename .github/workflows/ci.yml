@@ -1,0 +1,45 @@
+[200~name: CI - Markdown Check # 工作流的名称
+
+on: # 指定触发工作流的事件
+  push: # 当代码被推送到远程仓库时触发
+    branches: [ main ]   # 仅在推送到 main 分支时触发
+  pull_request: # 当创建或更新 Pull Request 时触发
+    branches: [ main ]   # 针对 main 分支的 PR
+
+jobs: # 定义工作流中的任务
+  markdown-lint: # 第一个任务：Markdown 语法检查
+    name: Lint Markdown
+    runs-on: ubuntu-latest # 任务运行在最新的 Ubuntu 虚拟机上
+
+    steps: # 定义任务中的步骤
+      # 步骤 1：检出代码（必须步骤）
+      - name: Checkout code
+        uses: actions/checkout@v4 # 使用官方 checkout Action
+
+      # 步骤 2：设置 Node.js 环境（许多 lint 工具基于 Node.js）
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 步骤 3：安装 Markdownlint CLI 工具
+      - name: Install markdownlint
+        run: npm install -g markdownlint-cli
+
+      # 步骤 4：运行 lint 检查，排除 node_modules 目录
+      - name: Run markdownlint
+        run: markdownlint "**/*.md" --ignore node_modules/
+
+  check-links: # 第二个任务：检查死链
+    name: Check Links
+    runs-on: ubuntu-latest
+    needs: markdown-lint # 表示此任务依赖上一个任务，只有上一个成功才会运行
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check links
+        uses: peter-evans/link-checker@v1
+        with:
+          args: -v -r **/*.md
