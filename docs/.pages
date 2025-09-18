@@ -3,4 +3,4 @@ nav:
   - index.md       # 首页排第一
   - kubernetes.md  # Kubernetes 排第二
   - docker.md      # Docker 排第三
-  - Monitoring:    # 创建一个名为 "Monitoring" 的目录
+# - Monitoring:    # 创建一个名为 "Monitoring" 的目录
