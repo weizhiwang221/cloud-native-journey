@@ -1,8 +1,13 @@
 # Cloud Native Journey - 个人云原生知识库
 
-[![最后提交](https://img.shields.io/github/last-commit/weizhiwang221/cloud-native-journey?style=flat-square)](https://github.com/weizhiwang221/cloud-native-journey/commits/main)
-[![仓库大小](https://img.shields.io/github/repo-size/weizhiwang221/cloud-native-journey?style=flat-square)](https://github.com/weizhiwang221/cloud-native-journey)
-[![MIT许可证](https://img.shields.io/github/license/weizhiwang221/cloud-native-journey?style=flat-square)](https://github.com/weizhiwang221/cloud-native-journey/blob/main/LICENSE)
+[![最后提交](README.assets/cloud-native-journey.svg+xml)](https://github.com/weizhiwang221/cloud-native-journey/commits/main)
+[![仓库大小](README.assets/cloud-native-journey-175828819626741.svg+xml)](https://github.com/weizhiwang221/cloud-native-journey)
+[![MIT许可证](README.assets/cloud-native-journey-175828819626742.svg+xml)](https://github.com/weizhiwang221/cloud-native-journey/blob/main/LICENSE)
+[![GitHub Stars](README.assets/cloud-native-journey-175828819626743.svg+xml)](https://github.com/weizhiwang221/cloud-native-journey/stargazers)
+[![GitHub Forks](README.assets/cloud-native-journey-175828819626744.svg+xml)](https://github.com/weizhiwang221/cloud-native-journey/network/members)
+[![Python](README.assets/Python-3.svg+xml)](https://www.python.org/)
+[![MkDocs](README.assets/MkDocs-Latest-orange.svg+xml)](https://www.mkdocs.org/)
+[![Website Status](README.assets/websitedown_message=offline&style=flat-square&up_message=online&url=https%3A%2F%2Fweizhiwang221.github.svg+xml)](https://weizhiwang221.github.io/cloud-native-journey/)
 
 > 一名云计算运维工程师的云原生学习与实践之旅。本仓库记录了关于 Kubernetes、DevOps、云平台及相关技术的知识总结、实践笔记和故障排查经验。
 
