@@ -1,4 +1,4 @@
-[200~name: CI - Markdown Check # 工作流的名称
+name: CI - Markdown Check # 工作流的名称
 
 on: # 指定触发工作流的事件
   push: # 当代码被推送到远程仓库时触发

@@ -91,4 +91,30 @@ GitHub：[cloud-native-journey](https://github.com/weizhiwang221/cloud-native-jo
 
 邮箱：[网易邮箱](https://mailto:weizhiwanglinux@163.com/)
 
-简历：[简历.pdf](https://)
+
+## 📄 我的简历
+
+欢迎下载我的最新简历，了解我的专业技能和工作经验。
+
+<a href="/cloud-native-journey/assets/resume.pdf" target="_blank" class="resume-button">
+  <span class="twemoji">📄</span> 查看简历 (PDF)
+</a>
+
+<style>
+.resume-button {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 10px 0;
+  transition: background-color 0.3s;
+}
+.resume-button:hover {
+  background-color: #2563eb;
+  color: white;
+  text-decoration: none;
+}
+</style>
