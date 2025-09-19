@@ -1,12 +1,8 @@
 # Cloud Native Journey - 个人云原生知识库
 
-https://img.shields.io/github/last-commit/weizhiwang221/cloud-native-journey?style=flat-square
-https://img.shields.io/github/repo-size/weizhiwang221/cloud-native-journey?style=flat-square
-https://img.shields.io/github/license/weizhiwang221/cloud-native-journey?style=flat-square
-
 > 一名云计算运维工程师的云原生学习与实践之旅。本仓库记录了关于 Kubernetes、DevOps、云平台及相关技术的知识总结、实践笔记和故障排查经验。
 
-**[🌐 在线访问知识库网站](https://weizhiwang221.github.io/cloud-native-journey/)** 
+**![GitHub](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)(https://github.com/weizhiwang221/cloud-native-journey)** 
 
 ------
 
