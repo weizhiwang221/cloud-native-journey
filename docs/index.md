@@ -2,8 +2,7 @@
 
 > 一名云计算运维工程师的云原生学习与实践之旅。本仓库记录了关于 Kubernetes、DevOps、云平台及相关技术的知识总结、实践笔记和故障排查经验。
 
-**![GitHub](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)(https://github.com/weizhiwang221/cloud-native-journey)** 
-
+**:material-github: [GitHub 主页](https://github.com/weizhiwang221/cloud-native-journey)**
 ------
 
 ## 📖 目录概览
