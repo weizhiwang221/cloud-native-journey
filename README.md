@@ -3,30 +3,11 @@
 [![最后提交](https://img.shields.io/github/last-commit/weizhiwang221/cloud-native-journey?style=flat-square)](https://github.com/weizhiwang221/cloud-native-journey/commits/main)
 [![仓库大小](https://img.shields.io/github/repo-size/weizhiwang221/cloud-native-journey?style=flat-square)](https://github.com/weizhiwang221/cloud-native-journey)
 [![MIT许可证](https://img.shields.io/github/license/weizhiwang221/cloud-native-journey?style=flat-square)](https://github.com/weizhiwang221/cloud-native-journey/blob/main/LICENSE)
-
---
 [![GitHub Stars](https://img.shields.io/github/stars/weizhiwang221/cloud-native-journey?style=flat-square&logo=github)](https://github.com/weizhiwang221/cloud-native-journey/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/weizhiwang221/cloud-native-journey?style=flat-square&logo=github)](https://github.com/weizhiwang221/cloud-native-journey/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/weizhiwang221/cloud-native-journey?style=flat-square)](https://github.com/weizhiwang221/cloud-native-journey/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/weizhiwang221/cloud-native-journey?style=flat-square)](https://github.com/weizhiwang221/cloud-native-journey/pulls)
-[![GitHub Contributors](https://img.shields.io/github/contributors/weizhiwang221/cloud-native-journey?style=flat-square)](https://github.com/weizhiwang221/cloud-native-journey/graphs/contributors)
-
---
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
 [![MkDocs](https://img.shields.io/badge/MkDocs-Latest-orange?style=flat-square&logo=markdown)](https://www.mkdocs.org/)
-[![Windmill Theme](https://img.shields.io/badge/Theme-Windmill-green?style=flat-square)](https://github.com/gristlabs/mkdocs-windmill)
-[![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-blue?style=flat-square&logo=githubpages)](https://pages.github.com/)
-
----
-# 如果您设置了GitHub Actions进行构建检查
-[![Build Status](https://img.shields.io/github/actions/workflow/status/weizhiwang221/cloud-native-journey/build.yml?style=flat-square&logo=githubactions)](https://github.com/weizhiwang221/cloud-native-journey/actions)
-
----
 [![Website Status](https://img.shields.io/website?down_message=offline&style=flat-square&up_message=online&url=https%3A%2F%2Fweizhiwang221.github.io%2Fcloud-native-journey%2F)](https://weizhiwang221.github.io/cloud-native-journey/)
-[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m789123456?style=flat-square)](https://stats.uptimerobot.com/)
-
-
-
 
 > 一名云计算运维工程师的云原生学习与实践之旅。本仓库记录了关于 Kubernetes、DevOps、云平台及相关技术的知识总结、实践笔记和故障排查经验。
 
