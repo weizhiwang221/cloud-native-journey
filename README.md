@@ -136,7 +136,7 @@
 
 ## 📞 联系方式
 
-王志伟 - [@weizhiwang221](https://github.com/weizhiwang221) - [weizhiwang221@gmail.com](https://mailto:weizhiwang221@gmail.com/)
+魏志旺 - [@weizhiwang221](https://github.com/weizhiwang221) - [weizhiwang221@gmail.com](https://mailto:weizhiwang221@gmail.com/)
 
 项目链接: https://github.com/weizhiwang221/cloud-native-journey
 
