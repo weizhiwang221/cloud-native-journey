@@ -35,10 +35,9 @@
       var is_top_frame = (window === window.parent);
         
         var pageToc = [
-          {title: "Cloud Native Journey - \u4e2a\u4eba\u4e91\u539f\u751f\u77e5\u8bc6\u5e93", url: "#_top", children: [
-              {title: "\ud83d\udcd6 \u76ee\u5f55\u6982\u89c8", url: "#_1" },
-              {title: "\ud83d\ude80 \u5185\u5bb9\u5bfc\u822a", url: "#_2" },
-              {title: "\ud83d\udcda \u5b66\u4e60\u8d44\u6e90", url: "#_8" },
+          {title: "\u9996\u9875", url: "#_top", children: [
+              {title: "\ud83d\udcd6 \u76ee\u5f55\u6982\u89c8", url: "#_2" },
+              {title: "\ud83d\ude80 \u5185\u5bb9\u5bfc\u822a", url: "#_3" },
               {title: "\ud83d\udcde \u8054\u7cfb\u65b9\u5f0f", url: "#_10" },
           ]},
         ];
@@ -97,7 +96,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <nav class="wm-toc-pane">
   
   <ul class="wm-toctree">
-        <li class="wm-toc-li wm-toc-lev1 "><a href="" class="wm-article-link wm-toc-text">Cloud Native Journey - 个人云原生知识库</a>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="" class="wm-article-link wm-toc-text">首页</a>
 </li>
         <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">技术</span>
 </li>
@@ -140,15 +139,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   </ul>
 </li>
 
-        <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">首页</span>
-</li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev2 "><a href="%E9%A6%96%E9%A1%B5/about/" class="wm-article-link wm-toc-text">关于</a>
-</li>
-  </ul>
-</li>
-
   </ul>
 </nav>
 
@@ -182,12 +172,12 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     
 
-    <h1 id="cloud-native-journey-">Cloud Native Journey - 个人云原生知识库</h1>
+    <h1 id="_1">首页</h1>
 <blockquote>
 <p>一名云计算运维工程师的云原生学习与实践之旅。本仓库记录了关于 Kubernetes、DevOps、云平台及相关技术的知识总结、实践笔记和故障排查经验。</p>
 </blockquote>
 <hr />
-<h2 id="_1">📖 目录概览</h2>
+<h2 id="_2">📖 目录概览</h2>
 <!-- TOC -->
 
 <ul>
@@ -204,7 +194,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <!-- TOC -->
 
 <hr />
-<h2 id="_2">🚀 内容导航</h2>
+<h2 id="_3">🚀 内容导航</h2>
 <h3 id="kubernetes">☸️ Kubernetes</h3>
 <ul>
 <li><a href="https://01-kubernetes/01-核心概念.md">核心概念</a> - Pods, Deployments, Services 等</li>
@@ -214,7 +204,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <li><a href="https://01-kubernetes/05-运维.md">运维管理</a> - Helm, Operator, 升级策略</li>
 <li><a href="https://01-kubernetes/06-调度.md">高级调度</a> - 亲和性/反亲和性, 污点与容忍</li>
 </ul>
-<h3 id="_3">☁️ 云平台</h3>
+<h3 id="_4">☁️ 云平台</h3>
 <ul>
 <li><strong>AWS</strong></li>
 <li><a href="https://02-cloud-providers/AWS/01-EKS-实战.md">EKS 实战</a></li>
@@ -232,24 +222,24 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <li><a href="https://03-ci-cd/03-ArgoCD-GitOps-实践.md">ArgoCD GitOps 实践</a></li>
 <li><a href="https://03-ci-cd/04-Jenkins-Pipeline-进阶.md">Jenkins Pipeline 进阶</a></li>
 </ul>
-<h3 id="_4">📜 基础设施即代码</h3>
+<h3 id="_5">📜 基础设施即代码</h3>
 <ul>
 <li><a href="https://04-infrastructure-as-code/01-Terraform-模块化实践.md">Terraform 模块化实践</a></li>
 <li><a href="https://04-infrastructure-as-code/02-Ansible-最佳实践.md">Ansible 最佳实践</a></li>
 </ul>
-<h3 id="_5">📊 监控与日志</h3>
+<h3 id="_6">📊 监控与日志</h3>
 <ul>
 <li><a href="https://05-monitoring-logging/01-Prometheus-Grafana-全方位监控.md">Prometheus + Grafana 全方位监控</a></li>
 <li><a href="https://05-monitoring-logging/02-Loki-日志系统实战.md">Loki 日志系统实战</a></li>
 <li><a href="https://05-monitoring-logging/03-告警配置与管理.md">告警配置与管理</a></li>
 </ul>
-<h3 id="_6">🛠️ 项目实践</h3>
+<h3 id="_7">🛠️ 项目实践</h3>
 <ul>
 <li><a href="https://06-projects/01-基于K8s的微服务电商平台.md">项目一：基于K8s的微服务电商平台</a></li>
 <li><a href="https://06-projects/02-Terraform自动化部署EKS集群.md">项目二：Terraform自动化部署EKS集群</a></li>
 <li><a href="https://06-projects/03-GitOps流水线实战.md">项目三：GitOps流水线实战</a></li>
 </ul>
-<h3 id="_7">🔧 故障排查</h3>
+<h3 id="_8">🔧 故障排查</h3>
 <ul>
 <li><a href="https://07-problem-solving/01-Kubernetes-常见问题排查.md">Kubernetes 常见问题排查</a></li>
 <li><a href="https://07-problem-solving/02-网络问题排查指南.md">网络问题排查指南</a></li>
@@ -257,7 +247,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <li><a href="https://07-problem-solving/04-性能调优案例.md">性能调优案例</a></li>
 </ul>
 <hr />
-<h2 id="_8">📚 学习资源</h2>
 <h3 id="_9">推荐书籍</h3>
 <ul>
 <li>《Kubernetes权威指南》</li>
@@ -268,6 +257,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h2 id="_10">📞 联系方式</h2>
 <p>GitHub：<a href="https://github.com/weizhiwang221/cloud-native-journey">cloud-native-journey</a> </p>
 <p>邮箱：<a href="https://mailto:weizhiwanglinux@163.com/">网易邮箱</a></p>
+<p>简历：<a href="https://">简历.pdf</a></p>
 
   <br>
     
@@ -302,5 +292,5 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </html>
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-09-19 01:51:49.457830+00:00
+Build Date UTC : 2025-09-19 02:04:18.677378+00:00
 -->
