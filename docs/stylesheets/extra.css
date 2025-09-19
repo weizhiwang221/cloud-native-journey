@@ -2,3 +2,54 @@
 .wm-page-content {
     max-width: 1000px !important; /* 使用 !important 确保覆盖主题默认样式 */
 }
+
+/* --- start add logo --- */
+/* 针对 Windmill 主题的 Logo 添加方案 */
+.wm-top-brand {
+  position: relative;
+  padding-left: 50px !important; /* 为 Logo 留出空间，使用 !important 确保覆盖 */
+  display: flex !important;
+  align-items: center !important;
+}
+
+.wm-top-brand::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background-image: url('../assets/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 10;
+}
+
+/* 调整标题文本的样式 */
+.wm-top-title {
+  margin-left: 0 !important;
+  display: inline-block;
+}
+
+/* 响应式调整 */
+@media (max-width: 767px) {
+  .wm-top-brand {
+    padding-left: 40px !important;
+  }
+  
+  .wm-top-brand::before {
+    width: 28px;
+    height: 28px;
+    left: 5px;
+  }
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .wm-top-brand::before {
+    filter: brightness(0.9) contrast(1.1);
+  }
+}
+/* --- start end logo --- */
