@@ -69,6 +69,6 @@ plugins:
 #   Copyright &copy; 2024 Weizhi Wang | 
 #   <a href="https://github.com/weizhiwang221/cloud-native-journey" target="_blank" rel="noopener">View on GitHub</a>
 
-# # 自定义CSS - 这是实现“Halo风格”的关键
-# extra_css:
-#   - stylesheets/extra.css
+# 自定义CSS - 这是实现“Halo风格”的关键
+extra_css:
+  - stylesheets/extra.css

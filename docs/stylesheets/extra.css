@@ -1,31 +1,4 @@
-/* 调整头部导航栏 */
-.md-header {
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-}
-
-/* 给主要内容区域添加卡片式效果 */
-.md-main {
-    padding: 1rem;
-}
-.md-content {
-    border-radius: 10px;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-    padding: 2rem;
-    background: var(--md-default-bg-color);
-}
-
-/* 美化标签页 */
-.md-tabs {
-    border-radius: 10px 10px 0 0;
-}
-
-/* 自定义按钮样式 */
-.md-button {
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-.md-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+/* 覆盖 Windmill 主题的页面内容最大宽度 */
+.wm-page-content {
+    max-width: 1000px !important; /* 使用 !important 确保覆盖主题默认样式 */
 }
