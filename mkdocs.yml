@@ -6,11 +6,11 @@ theme:
   #name: mkdocs
   name: windmill
   # 切换夜间模式
-  color_mode: auto
-  user_color_mode_toggle: true
-  # 导航栏深度
-  navigation_depth: 3
-  locale: zh_CN
+  # color_mode: auto
+  # user_color_mode_toggle: true
+  # # 导航栏深度
+  # navigation_depth: 3
+  # locale: zh_CN
   # name: material
   # custom_dir: docs/overrides # (可选) 用于深度自定义，覆盖主题模板
 
