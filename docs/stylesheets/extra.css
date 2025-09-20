@@ -53,3 +53,24 @@
   }
 }
 /* --- start end logo --- */
+
+/* start 更改顶部容器背景色 */
+.wm-top-container {
+    background-color: #2fa4e7  !important; /* 明亮的蓝色4051B5 */
+    color: #fff !important; /* 将文字颜色改为白色，确保对比度 */
+}
+
+/* 如果需要，同时更改顶部链接的颜色 */
+.wm-top-container a {
+    color: #e5e7eb !important;
+}
+.wm-top-container a:hover {
+    color: #ffffff !important;
+}
+
+/* end 更改顶部容器背景色 */
+
+/*.wm-top-container {
+    background-color: #您的颜色代码 !important;
+    color: #对应的文字颜色 !important;
+}*/
