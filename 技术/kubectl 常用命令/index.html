@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     
-    <link rel="canonical" href="https://weizhiwang221.github.io/cloud-native-journey/%E6%8A%80%E6%9C%AF/kubectl%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
+    <link rel="canonical" href="https://weizhiwang221.github.io/cloud-native-journey/%E6%8A%80%E6%9C%AF/kubectl%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>kubectl 命令大全 - MengQiu Twenty-nine</title>
+    <title>kubectl 常用命令 - MengQiu Twenty-nine</title>
     <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../../css/base.css" rel="stylesheet">
@@ -33,7 +33,13 @@
       var is_top_frame = false;
         
         var pageToc = [
-          {title: "kubectl \u547d\u4ee4\u5927\u5168", url: "#_top", children: [
+          {title: "kubectl \u5e38\u7528\u547d\u4ee4", url: "#_top", children: [
+              {title: "1\u3001\u7ba1\u7406\u8d44\u6e90", url: "#1" },
+              {title: "2\u3001\u67e5\u770b\u8d44\u6e90", url: "#2" },
+              {title: "3\u3001\u6545\u969c\u6392\u9664\u548c\u8bca\u65ad", url: "#3" },
+              {title: "4\u3001\u96c6\u7fa4\u7ba1\u7406", url: "#4" },
+              {title: "5\u3001\u5b89\u5168\u6027\u548c\u8eab\u4efd\u9a8c\u8bc1", url: "#5" },
+              {title: "6\u3001\u5176\u4ed6", url: "#6" },
           ]},
         ];
 
@@ -60,20 +66,20 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="../kubernetes/" class="btn btn-xs btn-default pull-right">
+      <a href="../kubernetes%E5%90%84%E4%B8%AA%E7%BB%84%E4%BB%B6%E7%9A%84%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E6%80%A7%E5%88%86%E6%9E%90/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="../kubernetes/" class="btn btn-xs btn-link">
-        kubernetes
+      <a href="../kubernetes%E5%90%84%E4%B8%AA%E7%BB%84%E4%BB%B6%E7%9A%84%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E6%80%A7%E5%88%86%E6%9E%90/" class="btn btn-xs btn-link">
+        Kubernetes各个组件的版本兼容性分析
       </a>
     </div>
     
     <div class="wm-article-nav">
-      <a href="../docker/" class="btn btn-xs btn-default pull-left">
+      <a href="../Linux%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../docker/" class="btn btn-xs btn-link">
-        docker
+        Previous</a><a href="../Linux%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/" class="btn btn-xs btn-link">
+        Linux系统优化脚本
       </a>
     </div>
     
@@ -81,8 +87,8 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     
 
-    <h1 id="kubectl">kubectl 命令大全</h1>
-<p><strong>管理资源</strong>:</p>
+    <h1 id="kubectl">kubectl 常用命令</h1>
+<h2 id="1">1、管理资源</h2>
 <table>
 <thead>
 <tr>
@@ -129,7 +135,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tr>
 </tbody>
 </table>
-<p><strong>查看资源</strong>:</p>
+<h2 id="2">2、查看资源</h2>
 <table>
 <thead>
 <tr>
@@ -160,7 +166,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tr>
 </tbody>
 </table>
-<p><strong>故障排除和诊断</strong>:</p>
+<h2 id="3">3、故障排除和诊断</h2>
 <table>
 <thead>
 <tr>
@@ -191,7 +197,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tr>
 </tbody>
 </table>
-<p><strong>集群管理</strong>:</p>
+<h2 id="4">4、集群管理</h2>
 <table>
 <thead>
 <tr>
@@ -234,7 +240,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tr>
 </tbody>
 </table>
-<p><strong>安全性和身份验证</strong>:</p>
+<h2 id="5">5、安全性和身份验证</h2>
 <table>
 <thead>
 <tr>
@@ -261,7 +267,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tr>
 </tbody>
 </table>
-<p><strong>其他</strong>:</p>
+<h2 id="6">6、其他</h2>
 <table>
 <thead>
 <tr>
@@ -301,20 +307,20 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="../kubernetes/" class="btn btn-xs btn-default pull-right">
+      <a href="../kubernetes%E5%90%84%E4%B8%AA%E7%BB%84%E4%BB%B6%E7%9A%84%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E6%80%A7%E5%88%86%E6%9E%90/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="../kubernetes/" class="btn btn-xs btn-link">
-        kubernetes
+      <a href="../kubernetes%E5%90%84%E4%B8%AA%E7%BB%84%E4%BB%B6%E7%9A%84%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E6%80%A7%E5%88%86%E6%9E%90/" class="btn btn-xs btn-link">
+        Kubernetes各个组件的版本兼容性分析
       </a>
     </div>
     
     <div class="wm-article-nav">
-      <a href="../docker/" class="btn btn-xs btn-default pull-left">
+      <a href="../Linux%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../docker/" class="btn btn-xs btn-link">
-        docker
+        Previous</a><a href="../Linux%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/" class="btn btn-xs btn-link">
+        Linux系统优化脚本
       </a>
     </div>
     
