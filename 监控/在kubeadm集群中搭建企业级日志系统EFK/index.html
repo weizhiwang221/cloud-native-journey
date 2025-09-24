@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://weizhiwang221.github.io/cloud-native-journey/%E7%9B%91%E6%8E%A7/%E5%9C%A8kubeadm%E9%9B%86%E7%BE%A4%E4%B8%AD%E6%90%AD%E5%BB%BA%E4%BC%81%E4%B8%9A%E7%BA%A7%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9FEFK/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>在kubeadm集群中搭建企业级日志系统EFK - MengQiu Twenty-nine</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../stylesheets/extra.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "\u5728kubeadm\u96c6\u7fa4\u4e2d\u642d\u5efa\u4f01\u4e1a\u7ea7\u65e5\u5fd7\u7cfb\u7edfEFK", url: "#_top", children: [
+              {title: "1\ufe0f\u20e3 \u521b\u5efa\u547d\u540d\u7a7a\u95f4 efk", url: "#1-efk" },
+              {title: "1\ufe0f\u20e3 \u521b\u5efa\u547d\u540d\u7a7a\u95f4 efk", url: "#1-efk_1" },
+              {title: "2\ufe0f\u20e3 \u521b\u5efa DaemonSet \u8bbe\u7f6e\u5185\u6838\u53c2\u6570", url: "#2-daemonset" },
+              {title: "3\ufe0f\u20e3 \u90e8\u7f72 Elasticsearch\uff08\u5355\u8282\u70b9\uff09", url: "#3-elasticsearch" },
+              {title: "4\ufe0f\u20e3 \u90e8\u7f72 Kibana", url: "#4-kibana" },
+              {title: "5\ufe0f\u20e3 \u90e8\u7f72 Fluent Bit", url: "#5-fluent-bit" },
+              {title: "\ud83d\udd0d \u9a8c\u8bc1\u65e5\u5fd7\u91c7\u96c6", url: "#_1" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../%E9%9D%A2%E8%AF%95/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../%E9%9D%A2%E8%AF%95/" class="btn btn-xs btn-link">
+        Index
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../%E6%95%85%E9%9A%9C/kubernetes%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../%E6%95%85%E9%9A%9C/kubernetes%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-link">
+        kubernetes故障
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="kubeadmefk">在kubeadm集群中搭建企业级日志系统EFK</h1>
+<ol>
+<li>确认集群正常：</li>
+</ol>
+<pre><code>kubectl cluster-info
+kubectl get nodes -o wide
+</code></pre>
+<ol>
+<li>
+<p>由于你是 <strong>单节点集群</strong>，默认 <code>control-plane</code> 节点有污点，Pod 不会调度到它。可以选择：</p>
+</li>
+<li>
+<p><strong>方法A（推荐）：</strong> 在后面 YAML 里都加上 tolerations。</p>
+</li>
+<li>
+<p><strong>方法B：</strong> 直接移除污点：</p>
+<p><code>kubectl taint nodes --all node-role.kubernetes.io/control-plane- || true</code></p>
+</li>
+<li>
+<p>检查有没有默认的 <strong>StorageClass</strong>（后面 Elasticsearch 要用PVC存储数据）：</p>
+</li>
+</ol>
+<pre><code>kubectl get sc
+</code></pre>
+<ul>
+<li>如果没有，可以快速装一个轻量的本地存储：</li>
+</ul>
+<p><code>kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+  kubectl annotate sc local-path storageclass.kubernetes.io/is-default-class="true"</code></p>
+<hr />
+<p>要不要我帮你先写一个 <strong>创建命名空间 efk</strong> 的 YAML 和命令？这样我们从这里开始，一步步往下搭建。</p>
+<h3 id="1-efk">1️⃣ 创建命名空间 efk</h3>
+<p>你可以直接执行命令：</p>
+<pre><code>kubectl create namespace efk
+</code></pre>
+<h3 id="1-efk_1">1️⃣ 创建命名空间 efk</h3>
+<p>你可以直接执行命令：</p>
+<pre><code>kubectl create namespace efk
+</code></pre>
+<p>或者写成一个 YAML 清单（建议用这种方式，方便版本管理）：</p>
+<pre><code># efk-namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: efk
+</code></pre>
+<p>执行：</p>
+<pre><code>kubectl apply -f efk-namespace.yaml
+</code></pre>
+<p>然后验证：</p>
+<pre><code>kubectl get ns
+</code></pre>
+<hr />
+<p>👉 下一步我们要处理 <strong>Elasticsearch 的前置内核参数 vm.max_map_count</strong>（否则启动会报错）。
+ 要不要我先帮你写一个 <strong>DaemonSet 来设置 vm.max_map_count</strong>？</p>
+<h3 id="2-daemonset">2️⃣ 创建 DaemonSet 设置内核参数</h3>
+<p>新建文件 <strong><code>efk-sysctl.yaml</code></strong>：</p>
+<pre><code>apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: efk-sysctl
+  namespace: efk
+spec:
+  selector:
+    matchLabels:
+      app: efk-sysctl
+  template:
+    metadata:
+      labels:
+        app: efk-sysctl
+    spec:
+      hostPID: true
+      tolerations:
+        - key: &quot;node-role.kubernetes.io/control-plane&quot;
+          operator: &quot;Exists&quot;
+          effect: &quot;NoSchedule&quot;
+      containers:
+        - name: sysctl
+          image: busybox:1.36
+          securityContext:
+            privileged: true
+          command: [&quot;sh&quot;, &quot;-c&quot;]
+          args:
+            - |
+              sysctl -w vm.max_map_count=262144
+              sysctl -w fs.file-max=1048576
+              # 容器保持存活
+              sleep 3600000
+</code></pre>
+<p>应用：</p>
+<pre><code>kubectl apply -f efk-sysctl.yaml
+</code></pre>
+<p>检查是否运行成功：</p>
+<pre><code>kubectl -n efk get pods -o wide
+</code></pre>
+<p>登录节点确认参数已生效：</p>
+<pre><code>sysctl -n vm.max_map_count
+</code></pre>
+<p>正常的话应该输出：<code>262144</code></p>
+<h3 id="3-elasticsearch">3️⃣ 部署 Elasticsearch（单节点）</h3>
+<p>新建文件 <strong><code>elasticsearch-single.yaml</code></strong>：</p>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: efk
+  labels:
+    app: elasticsearch
+spec:
+  ports:
+    - name: http
+      port: 9200
+      targetPort: 9200
+  selector:
+    app: elasticsearch
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elasticsearch
+  namespace: efk
+spec:
+  serviceName: elasticsearch
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      tolerations:
+        - key: &quot;node-role.kubernetes.io/control-plane&quot;
+          operator: &quot;Exists&quot;
+          effect: &quot;NoSchedule&quot;
+      containers:
+        - name: es
+          image: docker.io/elasticsearch:8.14.1
+          ports:
+            - containerPort: 9200
+              name: http
+            - containerPort: 9300
+              name: transport
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: ES_JAVA_OPTS
+              value: &quot;-Xms512m -Xmx512m&quot;
+            - name: xpack.security.enabled
+              value: &quot;false&quot;   # 单机测试关闭安全认证
+          volumeMounts:
+            - name: es-data
+              mountPath: /usr/share/elasticsearch/data
+          resources:
+            requests:
+              cpu: &quot;250m&quot;
+              memory: &quot;1Gi&quot;
+            limits:
+              cpu: &quot;1&quot;
+              memory: &quot;2Gi&quot;
+  volumeClaimTemplates:
+    - metadata:
+        name: es-data
+      spec:
+        accessModes: [&quot;ReadWriteOnce&quot;]
+        storageClassName: &quot;local-path&quot;  # 如果你用了 local-path-provisioner
+        resources:
+          requests:
+            storage: 20Gi
+</code></pre>
+<p>应用：</p>
+<pre><code>kubectl apply -f elasticsearch-single.yaml
+</code></pre>
+<p>等待启动完成：</p>
+<pre><code>kubectl -n efk rollout status sts/elasticsearch
+</code></pre>
+<p>检查 Pod：</p>
+<pre><code>kubectl -n efk get pods -o wide
+</code></pre>
+<p>测试访问：</p>
+<pre><code>kubectl -n efk port-forward svc/elasticsearch 9200:9200 &amp;
+curl http://127.0.0.1:9200
+</code></pre>
+<p>正常的话会返回 Elasticsearch 的 JSON 信息。</p>
+<h6 id="chatgpt">ChatGPT 说：</h6>
+<p>好的 👍 我们继续来部署 <strong>Kibana</strong>，它是 Elasticsearch 的可视化界面。</p>
+<h3 id="4-kibana">4️⃣ 部署 Kibana</h3>
+<p>新建文件 <strong><code>kibana.yaml</code></strong>：</p>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: efk
+  labels:
+    app: kibana
+spec:
+  type: NodePort   # 单节点集群，方便外部访问
+  ports:
+    - name: http
+      port: 5601
+      targetPort: 5601
+      nodePort: 30601   # 访问端口，可自行修改
+  selector:
+    app: kibana
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: efk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      tolerations:
+        - key: &quot;node-role.kubernetes.io/control-plane&quot;
+          operator: &quot;Exists&quot;
+          effect: &quot;NoSchedule&quot;
+      containers:
+        - name: kibana
+          image: docker.io/kibana:8.14.1
+          ports:
+            - containerPort: 5601
+          env:
+            - name: ELASTICSEARCH_HOSTS
+              value: &quot;[\&quot;http://elasticsearch.efk.svc:9200\&quot;]&quot;
+            - name: NODE_OPTIONS
+              value: &quot;--max-old-space-size=2048&quot;
+          resources:
+            requests:
+              cpu: &quot;100m&quot;
+              memory: &quot;256Mi&quot;
+            limits:
+              cpu: &quot;500m&quot;
+              memory: &quot;512Mi&quot;
+</code></pre>
+<p>应用：</p>
+<pre><code>kubectl apply -f kibana.yaml
+</code></pre>
+<p>等待启动：</p>
+<pre><code>kubectl -n efk rollout status deploy/kibana
+</code></pre>
+<p>检查 Pod：</p>
+<pre><code>kubectl -n efk get pods -o wide
+</code></pre>
+<p>然后访问：</p>
+<pre><code>http://&lt;你的节点IP&gt;:30601
+</code></pre>
+<p>就能看到 Kibana 界面啦 🎉</p>
+<hr />
+<p>✅ Kibana 已经搭建好了。</p>
+<h3 id="5-fluent-bit">5️⃣ 部署 Fluent Bit</h3>
+<h4 id="51-rbac">5.1 创建 RBAC</h4>
+<p>新建文件 <strong><code>fluent-bit-rbac.yaml</code></strong>：</p>
+<pre><code>apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fluent-bit
+  namespace: efk
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fluent-bit-read
+rules:
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;, &quot;namespaces&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: fluent-bit-read
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: fluent-bit-read
+subjects:
+  - kind: ServiceAccount
+    name: fluent-bit
+    namespace: efk
+</code></pre>
+<p>应用：</p>
+<pre><code>kubectl apply -f fluent-bit-rbac.yaml
+</code></pre>
+<hr />
+<h4 id="52-configmap">5.2 创建 ConfigMap</h4>
+<p>新建文件 <strong><code>fluent-bit-config.yaml</code></strong>：</p>
+<pre><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-config
+  namespace: efk
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush        5
+        Daemon       Off
+        Log_Level    debug
+        Parsers_File parsers.conf
+
+    [INPUT]
+        Name              tail
+        Path              /var/log/containers/*.log
+        Exclude_Path      /var/log/containers/*_fluent-bit-*
+        Tag               kube.*
+        Mem_Buf_Limit     50MB
+        Skip_Long_Lines   On
+        Refresh_Interval  5
+        Parser            docker
+
+    [FILTER]
+        Name                kubernetes
+        Match               kube.*
+        Kube_URL            https://kubernetes.default.svc:443
+        Kube_Tag_Prefix     kube.var.log.containers.
+        Merge_Log           On
+        Keep_Log            Off
+        K8S-Logging.Parser  On
+        K8S-Logging.Exclude Off
+
+    [OUTPUT]
+        Name            es
+        Match           kube.*
+        Host            elasticsearch.efk.svc
+        Port            9200
+        Logstash_Format On
+        Logstash_Prefix kubernetes
+        Replace_Dots    On
+        Retry_Limit     False
+
+  parsers.conf: |
+    [PARSER]
+        Name        docker
+        Format      json
+        Time_Key    time
+        Time_Format %Y-%m-%dT%H:%M:%S.%L%z
+
+</code></pre>
+<p>应用：</p>
+<pre><code>kubectl apply -f fluent-bit-config.yaml
+</code></pre>
+<hr />
+<p>✅ 到这里，RBAC 和配置文件就准备好了。
+ 下一步就是部署 <strong>Fluent Bit DaemonSet</strong>，它会在每个节点运行并采集日志。</p>
+<p>好，我们最后一步来写 <strong>Fluent Bit DaemonSet</strong>，这样就能在节点上采集容器日志并发送到 Elasticsearch。</p>
+<hr />
+<h4 id="53-fluent-bit-daemonset">5.3 创建 Fluent Bit DaemonSet</h4>
+<p>新建文件 <strong><code>fluent-bit-daemonset.yaml</code></strong>：</p>
+<pre><code>apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluent-bit
+  namespace: efk
+  labels:
+    app.kubernetes.io/name: fluent-bit
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fluent-bit
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fluent-bit
+    spec:
+      serviceAccountName: fluent-bit
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+      tolerations:
+        - key: &quot;node-role.kubernetes.io/control-plane&quot;
+          operator: &quot;Exists&quot;
+          effect: &quot;NoSchedule&quot;
+      containers:
+        - name: fluent-bit
+          image: fluent/fluent-bit:2.9.9
+          args: [&quot;-c&quot;, &quot;/fluent-bit/etc/fluent-bit.conf&quot;]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          volumeMounts:
+            - name: varlog
+              mountPath: /var/log
+            - name: config
+              mountPath: /fluent-bit/etc/
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: varlog
+          hostPath:
+            path: /var/log
+            type: Directory
+        - name: config
+          configMap:
+            name: fluent-bit-config
+            defaultMode: 420
+
+</code></pre>
+<p>应用：</p>
+<pre><code>kubectl apply -f fluent-bit-daemonset.yaml
+</code></pre>
+<hr />
+<h3 id="_1">🔍 验证日志采集</h3>
+<ol>
+<li>查看 Pod 是否正常运行：</li>
+</ol>
+<pre><code>kubectl -n efk get pods -o wide
+</code></pre>
+<ol>
+<li>查看 Fluent Bit 日志确认输出到 ES：</li>
+</ol>
+<pre><code>kubectl -n efk logs -l app.kubernetes.io/name=fluent-bit
+</code></pre>
+<ol>
+<li>检查 Elasticsearch 是否有新索引：</li>
+</ol>
+<pre><code>kubectl -n efk port-forward svc/elasticsearch 9200:9200 &amp;
+curl 'http://127.0.0.1:9200/_cat/indices?v'
+</code></pre>
+<p>应该能看到 <code>kubernetes-*</code> 开头的索引。</p>
+<ol>
+<li>打开 Kibana（http://&lt;你的节点IP&gt;:30601），在 <strong>Stack Management → Index Patterns</strong> 里添加 <code>kubernetes-*</code>，选择 <code>@timestamp</code> 字段，就能开始在 <strong>Discover</strong> 里查看日志了 🎉</li>
+</ol>
+<hr />
+<p>✅ 到这里，一整套 <strong>EFK 日志系统</strong> 就部署完成了。</p>
+<p>执行报<code>kubectl -n efk port-forward svc/elasticsearch 9200:9200 &amp;</code>报错</p>
+<pre><code class="language-shell">[root@k8s-master efk]# kubectl -n efk port-forward svc/elasticsearch 9200:9200 &amp;
+[1] 67634
+[root@k8s-master efk]# Forwarding from 127.0.0.1:9200 -&gt; 9200
+Handling connection for 9200
+E0825 16:44:40.755824   67634 portforward.go:424] &quot;Unhandled Error&quot; err=&quot;an error occurred forwarding 9200 -&gt; 9200: error forwarding port 9200 to pod 95b8653b6a8b5d4382d72af972b42cdc3a967c0cb50429cbd00ca703b424a510, uid : unable to do port forwarding: socat not found&quot;
+error: lost connection to pod
+
+</code></pre>
+<p>解决方案：</p>
+<pre><code class="language-shell"># 说明 Kubernetes 本地的 port-forward 功能需要 socat 来转发端口，但你的系统里没有安装它。
+yum install -y socat
+</code></pre>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../%E9%9D%A2%E8%AF%95/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../%E9%9D%A2%E8%AF%95/" class="btn btn-xs btn-link">
+        Index
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../%E6%95%85%E9%9A%9C/kubernetes%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../%E6%95%85%E9%9A%9C/kubernetes%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-link">
+        kubernetes故障
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content"><p>Copyright &copy; 2025 WeiZhiwang | 
+<a href="https://github.com/weizhiwang221/cloud-native-journey" target="_blank" rel="noopener">View on GitHub</a>
+</p>
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

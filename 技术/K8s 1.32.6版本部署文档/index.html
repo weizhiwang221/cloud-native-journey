@@ -33,34 +33,34 @@
       var is_top_frame = false;
         
         var pageToc = [
-          {title: "\u4e3b\u673a\u914d\u7f6e", url: "#_top", children: [
+          {title: "\ud83e\udd16\u4e3b\u673a\u914d\u7f6e", url: "#_top", children: [
           ]},
-          {title: "\u8bbe\u7f6eIP", url: "#ip", children: [
+          {title: "\ud83e\udeaa\u8bbe\u7f6eIP", url: "#ip", children: [
           ]},
-          {title: "\u914d\u7f6eYUM\u6e90", url: "#yum", children: [
+          {title: "\ud83d\ude80\u914d\u7f6eYUM\u6e90", url: "#yum", children: [
           ]},
-          {title: "\u9632\u706b\u5899\u548cSELinux", url: "#selinux", children: [
+          {title: "\ud83e\uddf1\u9632\u706b\u5899\u548cSELinux", url: "#selinux", children: [
           ]},
-          {title: "\u65f6\u95f4\u540c\u6b65\u914d\u7f6e", url: "#_2", children: [
+          {title: "\u23f1\ufe0f\u65f6\u95f4\u540c\u6b65\u914d\u7f6e", url: "#_2", children: [
           ]},
-          {title: "\u914d\u7f6e\u5185\u6838\u8f6c\u53d1\u53ca\u7f51\u6865\u8fc7\u6ee4", url: "#_3", children: [
+          {title: "\ud83d\udede\u914d\u7f6e\u5185\u6838\u8f6c\u53d1\u53ca\u7f51\u6865\u8fc7\u6ee4", url: "#_3", children: [
           ]},
-          {title: "\u5173\u95edswap", url: "#swap", children: [
+          {title: "\ud83d\udcf4\u5173\u95edswap", url: "#swap", children: [
           ]},
-          {title: "\u542f\u7528ipvs", url: "#ipvs", children: [
+          {title: "\ud83d\udcc4\u542f\u7528ipvs", url: "#ipvs", children: [
           ]},
-          {title: "\u53e5\u67c4\u6570\u6700\u5927", url: "#_4", children: [
+          {title: "\ud83d\udcc3\u53e5\u67c4\u6570\u6700\u5927", url: "#_4", children: [
           ]},
-          {title: "\u7cfb\u7edf\u4f18\u5316", url: "#_5", children: [
+          {title: "\ud83d\uddc3\ufe0f\u7cfb\u7edf\u4f18\u5316", url: "#_5", children: [
           ]},
-          {title: "\u5b89\u88c5docker", url: "#docker", children: [
+          {title: "\ud83d\udc0b\u5b89\u88c5docker", url: "#docker", children: [
           ]},
           {title: "\u5b89\u88c5cri-dockerd", url: "#cri-dockerd", children: [
               {title: "\u5b89\u88c5cri-docker", url: "#cri-docker" },
               {title: "\u8bbe\u7f6ecri-docker\u670d\u52a1\u5f00\u673a\u81ea\u542f", url: "#cri-docker_1" },
               {title: "cri-docke\u8bbe\u7f6e\u56fd\u5185\u955c\u50cf\u52a0\u901f", url: "#cri-docke" },
           ]},
-          {title: "K8S\u8f6f\u4ef6\u5b89\u88c5", url: "#k8s", children: [
+          {title: "\u2638\ufe0fK8S\u8f6f\u4ef6\u5b89\u88c5", url: "#k8s", children: [
           ]},
           {title: "K8S\u96c6\u7fa4\u521d\u59cb\u5316", url: "#k8s_1", children: [
           ]},
@@ -118,7 +118,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     
 
-    <h3 id="_1">主机配置</h3>
+    <h3 id="_1">🤖主机配置</h3>
 <table>
 <thead>
 <tr>
@@ -160,7 +160,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tr>
 </tbody>
 </table>
-<h3 id="ip">设置IP</h3>
+<h3 id="ip">🪪设置IP</h3>
 <pre><code class="language-bash">方式一：
 nmcli connection modify ens160 ipv4.addresses 192.168.1.30/24 ipv4.gateway 192.168.1.1 ipv4.method manual
 nmcli connection modify ens160 ipv4.addresses 192.168.1.31/24 ipv4.gateway 192.168.1.1 ipv4.method manual
@@ -183,7 +183,7 @@ nmcli connection reload ens160.nmconnection
 激活配置文件
 nmcli connection up ens160
 </code></pre>
-<h3 id="yum">配置YUM源</h3>
+<h3 id="yum">🚀配置YUM源</h3>
 <ol>
 <li>配置yum源</li>
 </ol>
@@ -309,7 +309,7 @@ EOF
 [root@k8s-master ~]# ssh-copy-id k8s-node2
 [root@k8s-master ~]# ssh-copy-id k8s-node3
 </code></pre>
-<h3 id="selinux">防火墙和SELinux</h3>
+<h3 id="selinux">🧱防火墙和SELinux</h3>
 <pre><code class="language-bash"># 关闭防火墙
 systemctl disable --now firewalld
 # 禁用SELinux
@@ -317,7 +317,7 @@ sed -i '/^SELINUX=/ c SELINUX=disabled' /etc/selinux/config
 # 重启生效所以临时设置为宽容模式
 setenforce 0
 </code></pre>
-<h3 id="_2">时间同步配置</h3>
+<h3 id="_2">⏱️时间同步配置</h3>
 <pre><code class="language-bash"># 安装时间服务器软件包
 dnf install -y chrony
 # 修改同步服务器
@@ -326,7 +326,7 @@ systemctl restart chronyd
 systemctl enable chronyd
 chronyc sources
 </code></pre>
-<h3 id="_3">配置内核转发及网桥过滤</h3>
+<h3 id="_3">🛞配置内核转发及网桥过滤</h3>
 <pre><code class="language-bash"># 添加网桥过滤及内核转发配置文件
 cat &gt; /etc/sysctl.d/k8s.conf &lt;&lt; EOF
 net.bridge.bridge-nf-call-ip6tables = 1
@@ -340,14 +340,14 @@ modprobe br_netfilter
 <p>使用新添加配置文件生效</p>
 <pre><code class="language-bash">sysctl -p /etc/sysctl.d/k8s.conf
 </code></pre>
-<h3 id="swap">关闭swap</h3>
+<h3 id="swap">📴关闭swap</h3>
 <p>查看交换分区情况</p>
 <pre><code class="language-bash"># 临时关闭
 swapoff -a
 # 永远关闭swap分区
 sed -i 's/.*swap.*/#&amp;/' /etc/fstab
 </code></pre>
-<h3 id="ipvs">启用ipvs</h3>
+<h3 id="ipvs">📄启用ipvs</h3>
 <pre><code class="language-bash">cat &gt;&gt; /etc/modules-load.d/ipvs.conf &lt;&lt; EOF
 br_netfilter
 ip_conntrack
@@ -385,7 +385,7 @@ dnf install ipvsadm ipset sysstat conntrack libseccomp -y
 <p>查看模块内容</p>
 <pre><code class="language-bash">lsmod | grep -e ip_vs -e nf_conntrack
 </code></pre>
-<h3 id="_4">句柄数最大</h3>
+<h3 id="_4">📃句柄数最大</h3>
 <pre><code class="language-bash"># 设置为最大
 ulimit -SHn 65535
 
@@ -402,7 +402,7 @@ EOF
 # 查看修改结果
 ulimit -a
 </code></pre>
-<h3 id="_5">系统优化</h3>
+<h3 id="_5">🗃️系统优化</h3>
 <pre><code class="language-bash">cat &gt; /etc/sysctl.d/k8s_better.conf &lt;&lt; EOF
 net.bridge.bridge-nf-call-iptables=1
 net.bridge.bridge-nf-call-ip6tables=1
@@ -424,7 +424,7 @@ lsmod |grep conntrack
 modprobe ip_conntrack
 sysctl -p /etc/sysctl.d/k8s_better.conf
 </code></pre>
-<h3 id="docker">安装docker</h3>
+<h3 id="docker">🐋安装docker</h3>
 <pre><code class="language-bash"># Step 1: 安装依赖
 yum install -y yum-utils device-mapper-persistent-data lvm2
 
@@ -492,7 +492,7 @@ systemctl daemon-reload &amp;&amp; systemctl restart docker cri-docker.socket cr
 # 检查Docker组件状态
 systemctl status docker cir-docker.socket cri-docker
 </code></pre>
-<h3 id="k8s">K8S软件安装</h3>
+<h3 id="k8s">☸️K8S软件安装</h3>
 <pre><code class="language-bash"># 1、配置kubernetes源
 cat &lt;&lt;EOF | tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
