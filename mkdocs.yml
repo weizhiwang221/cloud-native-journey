@@ -1,6 +1,6 @@
 site_name: MengQiu Twenty-nine
 site_url: https://weizhiwang221.github.io/cloud-native-journey/
-site_description: 一名云计算运维工程师的云原生学习与实践之旅。
+site_description: 云原生学习与实践之旅。
 
 theme:
   name: windmill
@@ -11,7 +11,7 @@ plugins:
 
 # 版权信息
 copyright: |
-  Copyright &copy; 2025 Weizhi Wang | 
+  Copyright &copy; 2025 WeiZhiwang | 
   <a href="https://github.com/weizhiwang221/cloud-native-journey" target="_blank" rel="noopener">View on GitHub</a>
 
 # 自定义CSS - 这是实现“Halo风格”的关键
