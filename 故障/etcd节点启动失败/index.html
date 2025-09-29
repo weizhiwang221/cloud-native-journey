@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://weizhiwang221.github.io/cloud-native-journey/%E6%95%85%E9%9A%9C/etcd%E8%8A%82%E7%82%B9%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Etcd节点启动失败 - MengQiu Twenty-nine</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../stylesheets/extra.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "etcd\u914d\u7f6e\u6587\u4ef6", url: "#_top", children: [
+          ]},
+          {title: "etcd\u670d\u52a1\u5355\u5143\u6587\u4ef6", url: "#etcd_1", children: [
+          ]},
+          {title: "etcd \u670d\u52a1\u72b6\u6001", url: "#etcd_2", children: [
+          ]},
+          {title: "etcd\u65e5\u5fd7", url: "#etcd_3", children: [
+          ]},
+          {title: "etcd\u6392\u67e5\u811a\u672c", url: "#etcd_4", children: [
+          ]},
+          {title: "etcd \u811a\u672c\u6267\u884c\u7ed3\u679c", url: "#etcd_5", children: [
+          ]},
+          {title: "\u68c0\u67e5etcd\u96c6\u7fa4\u72b6\u6001", url: "#etcd_6", children: [
+          ]},
+          {title: "NetworkManager\u72b6\u6001", url: "#networkmanager", children: [
+          ]},
+          {title: "\u6587\u4ef6\u76ee\u5f55\u6743\u9650", url: "#_1", children: [
+          ]},
+          {title: "\u4f7f\u7528strace systemctl start etcd\u547d\u4ee4", url: "#strace-systemctl-start-etcd", children: [
+          ]},
+          {title: "\u89e3\u51b3\u65b9\u6848", url: "#_2", children: [
+              {title: "\u91cd\u542f\u5bbf\u4e3b\u673a\u53d1\u73b0etcd\u670d\u52a1\u542f\u52a8\u6b63\u5e38\uff01\uff01\uff01", url: "#etcd_7" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../kubernetes%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../kubernetes%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-link">
+        kubernetes故障
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../docker%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../docker%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-link">
+        docker故障
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h2 id="etcd">etcd配置文件</h2>
+<pre><code class="language-shell">[root@host-134-84-77-200 ~]# cat /etc/etcd/etcd.conf 
+ETCD_NAME=&quot;etcd_77_200&quot;
+ETCD_DATA_DIR=&quot;/apps/etcd_data/etcd&quot;
+
+ETCD_CIPHER_SUITES=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
+ETCD_CERT_FILE=/etc/kubernetes/ssl/etcd_server.crt
+ETCD_KEY_FILE=/etc/kubernetes/ssl/etcd_server.key
+ETCD_TRUSTED_CA_FILE=/etc/kubernetes/ssl/ca.crt
+ETCD_CLIENT_CERT_AUTH=true
+
+ETCD_LISTEN_CLIENT_URLS=&quot;https://134.84.77.200:1159,https://127.0.0.1:1159&quot;
+ETCD_ADVERTISE_CLIENT_URLS=&quot;https://134.84.77.200:1159,https://127.0.0.1:1159&quot;
+
+ETCD_PEER_CERT_FILE=/etc/kubernetes/ssl/etcd_server.crt
+ETCD_PEER_KEY_FILE=/etc/kubernetes/ssl/etcd_server.key
+ETCD_PEER_TRUSTED_CA_FILE=/etc/kubernetes/ssl/ca.crt
+
+ETCD_INITIAL_CLUSTER=&quot;etcd_77_200=https://134.84.77.200:2380,etcd_76_180=https://134.84.76.180:2380,etcd_78_84=https://134.84.78.84:2380&quot;
+ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot;
+ETCD_INITIAL_CLUSTER_TOKEN=&quot;cc34c326-4694-48c6-afdf-c317f40c1847&quot;
+ETCD_LISTEN_PEER_URLS=&quot;https://134.84.77.200:2380&quot;
+ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;https://134.84.77.200:2380&quot;
+[root@host-134-84-77-200 ~]# 
+</code></pre>
+<h2 id="etcd_1">etcd服务单元文件</h2>
+<pre><code class="language-shell">[root@host-134-84-77-200 ~]# cat /usr/lib/systemd/system/etcd.service
+[Unit]
+Description=Etcd Server
+After=network.target
+
+[Service]
+Type=notify
+WorkingDirectory=/apps/etcd_data/etcd
+EnvironmentFile=-/etc/etcd/etcd.conf
+ExecStart=/usr/bin/etcd
+RestartSec=3
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+[root@host-134-84-77-200 ~]# 
+</code></pre>
+<h2 id="etcd_2">etcd 服务状态</h2>
+<pre><code class="language-shell">[root@host-134-84-77-200 ~]# systemctl status etcd
+● etcd.service - Etcd Server
+   Loaded: loaded (/usr/lib/systemd/system/etcd.service; enabled; vendor preset: disabled)
+   Active: inactive (dead) (Result: exit-code) since Thu 2025-01-23 22:49:49 CST; 8 months 1 days ago
+ Main PID: 34358 (code=exited, status=1/FAILURE)
+
+Sep 25 16:38:05 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 16:38:05 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 16:39:59 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 16:39:59 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 16:48:40 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 16:48:40 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 16:54:39 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 16:54:39 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 17:00:49 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 17:00:49 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+</code></pre>
+<h2 id="etcd_3">etcd日志</h2>
+<pre><code class="language-shell">[root@host-134-84-77-200 ~]# journalctl -xe -u etcd
+-- 
+-- The job identifier is 51123310 and the job result is dependency.
+Sep 25 16:16:23 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 16:22:35 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+-- Subject: A start job for unit etcd.service has failed
+-- Defined-By: systemd
+-- Support: https://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- A start job for unit etcd.service has finished with a failure.
+-- 
+-- The job identifier is 51123502 and the job result is dependency.
+Sep 25 16:22:35 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 16:38:05 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+-- Subject: A start job for unit etcd.service has failed
+-- Defined-By: systemd
+-- Support: https://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- A start job for unit etcd.service has finished with a failure.
+-- 
+</code></pre>
+<h2 id="etcd_4">etcd排查脚本</h2>
+<pre><code class="language-shell">#!/bin/bash
+# check_etcd_node.sh
+# 用于排查 etcd 节点启动问题
+
+ETCD_CONF=&quot;/etc/etcd/etcd.conf&quot;
+ETCD_BIN=&quot;/usr/bin/etcd&quot;
+WORKDIR=$(grep &quot;^ETCD_DATA_DIR&quot; $ETCD_CONF | cut -d= -f2 | tr -d '&quot;')
+CERT=$(grep &quot;^ETCD_CERT_FILE&quot; $ETCD_CONF | cut -d= -f2 | tr -d '&quot;')
+KEY=$(grep &quot;^ETCD_KEY_FILE&quot; $ETCD_CONF | cut -d= -f2 | tr -d '&quot;')
+CA=$(grep &quot;^ETCD_TRUSTED_CA_FILE&quot; $ETCD_CONF | cut -d= -f2 | tr -d '&quot;')
+
+echo &quot;===== 1. 检查网络服务 =====&quot;
+systemctl is-active network &amp;&gt;/dev/null &amp;&amp; echo &quot;network 服务正常&quot; || echo &quot;network 服务未启动&quot;
+systemctl is-active NetworkManager &amp;&gt;/dev/null &amp;&amp; echo &quot;NetworkManager 服务正常&quot; || echo &quot;NetworkManager 服务未启动&quot;
+
+echo &quot;===== 2. 检查 etcd 服务状态 =====&quot;
+systemctl status etcd -l --no-pager
+
+echo &quot;===== 3. 检查 etcd 进程 =====&quot;
+ps -ef | grep [e]tcd
+
+echo &quot;===== 4. 检查数据目录 =====&quot;
+if [ -d &quot;$WORKDIR&quot; ]; then
+    echo &quot;数据目录存在: $WORKDIR&quot;
+    ls -ld &quot;$WORKDIR&quot;
+else
+    echo &quot;数据目录不存在: $WORKDIR&quot;
+fi
+
+echo &quot;===== 5. 检查证书文件 =====&quot;
+for f in &quot;$CERT&quot; &quot;$KEY&quot; &quot;$CA&quot;; do
+    if [ -f &quot;$f&quot; ]; then
+        echo &quot;证书文件存在: $f&quot;
+        ls -l &quot;$f&quot;
+    else
+        echo &quot;证书文件缺失: $f&quot;
+    fi
+done
+
+echo &quot;===== 6. 检查端口监听 =====&quot;
+ss -lntp | grep etcd || echo &quot;etcd 端口未监听&quot;
+
+echo &quot;===== 7. 尝试手动启动 etcd 检查错误 =====&quot;
+echo &quot;==== 注意：这是测试启动，不会后台运行 ====&quot;
+$ETCD_BIN --config-file $ETCD_CONF
+
+</code></pre>
+<h2 id="etcd_5">etcd 脚本执行结果</h2>
+<pre><code class="language-shell">[root@host-134-84-77-200 ~]# sh check_etcd_node.sh 
+===== 1. 检查网络服务 =====
+network 服务未启动
+NetworkManager 服务正常
+===== 2. 检查 etcd 服务状态 =====
+● etcd.service - Etcd Server
+   Loaded: loaded (/usr/lib/systemd/system/etcd.service; enabled; vendor preset: disabled)
+   Active: inactive (dead) (Result: exit-code) since Thu 2025-01-23 22:49:49 CST; 8 months 1 days ago
+ Main PID: 34358 (code=exited, status=1/FAILURE)
+
+Sep 25 16:38:05 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 16:38:05 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 16:39:59 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 16:39:59 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 16:48:40 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 16:48:40 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 16:54:39 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 16:54:39 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+Sep 25 17:00:49 host-134-84-77-200 systemd[1]: Dependency failed for Etcd Server.
+Sep 25 17:00:49 host-134-84-77-200 systemd[1]: etcd.service: Job etcd.service/start failed with result 'dependency'.
+===== 3. 检查 etcd 进程 =====
+root      8468     1  4  2024 ?        16-05:08:06 /usr/bin/kube-apiserver --bind-address=0.0.0.0 --secure-port=6443 --authorization-mode=RBAC --anonymous-auth=false --etcd-servers=https://134.84.77.200:1159,https://134.84.76.180:1159,https://134.84.78.84:1159 --service-cluster-ip-range=169.169.0.0/16 --etcd-certfile=/etc/kubernetes/ssl/etcd_client.crt --etcd-keyfile=/etc/kubernetes/ssl/etcd_client.key --etcd-cafile=/etc/kubernetes/ssl/ca.crt --service-account-issuer=https://kubernetes.default.svc.cluster.local --service-account-key-file=/etc/kubernetes/ssl/sa.pub --service-account-signing-key-file=/etc/kubernetes/ssl/sa.key --kubelet-client-certificate=/etc/kubernetes/ssl/client.crt --kubelet-client-key=/etc/kubernetes/ssl/client.key --enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook --service-node-port-range=20000-32767 --client-ca-file=/etc/kubernetes/ssl/ca.crt --tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256 --tls-private-key-file=/etc/kubernetes/ssl/apiserver.key --tls-cert-file=/etc/kubernetes/ssl/apiserver.crt --v=0 --allow-privileged=true --event-ttl=48h0m0s --max-mutating-requests-inflight=500 --max-requests-inflight=1500 --default-watch-cache-size=10000 --apiserver-count=3 --endpoint-reconciler-type=lease --requestheader-client-ca-file=/etc/kubernetes/ssl/front-proxy-ca.crt --requestheader-allowed-names= --requestheader-extra-headers-prefix=X-Remote-Extra- --requestheader-group-headers=X-Remote-Group --requestheader-username-headers=X-Remote-User --proxy-client-cert-file=/etc/kubernetes/ssl/front-proxy-client.crt --proxy-client-key-file=/etc/kubernetes/ssl/front-proxy-client.key --enable-aggregator-routing=true --oidc-issuer-url=https://keycloak.sdpod-77-200-20030.4a.cmit.cloud:20129/auth/realms/kem --oidc-client-id=kubernetes --oidc-username-claim=preferred_username --oidc-username-prefix=- --oidc-groups-claim=groups --oidc-ca-file=/etc/kubernetes/pki/ca_ssl/tls.crt --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-log-path=/apps/monitor/oblogs/kube-apiserver/audit.log --feature-gates=
+aiox     12572 12538  0 May08 ?        09:59:59 /usr/local/bin/etcd
+5000     33511 33473  0 17:11 ?        00:00:00 /usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init_etcd
+root     33758 18036  0 17:11 pts/1    00:00:00 sh check_etcd_node.sh
+===== 4. 检查数据目录 =====
+数据目录存在: /apps/etcd_data/etcd
+drwxr-xr-x 3 root root 20 Aug 27 18:20 /apps/etcd_data/etcd
+===== 5. 检查证书文件 =====
+证书文件存在: /etc/kubernetes/ssl/etcd_server.crt
+-rw-r--r-- 1 root root 1367 Sep 19  2024 /etc/kubernetes/ssl/etcd_server.crt
+证书文件存在: /etc/kubernetes/ssl/etcd_server.key
+-rw-r--r-- 1 root root 1679 Sep 19  2024 /etc/kubernetes/ssl/etcd_server.key
+证书文件存在: /etc/kubernetes/ssl/ca.crt
+-rw-r--r-- 1 root root 1346 Sep 19  2024 /etc/kubernetes/ssl/ca.crt
+===== 6. 检查端口监听 =====
+etcd 端口未监听
+===== 7. 尝试手动启动 etcd 检查错误 =====
+==== 注意：这是测试启动，不会后台运行 ====
+{&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-09-25T17:11:33.367+0800&quot;,&quot;caller&quot;:&quot;etcdmain/etcd.go:73&quot;,&quot;msg&quot;:&quot;Running: &quot;,&quot;args&quot;:[&quot;/usr/bin/etcd&quot;,&quot;--config-file&quot;,&quot;/etc/etcd/etcd.conf&quot;]}
+{&quot;level&quot;:&quot;warn&quot;,&quot;ts&quot;:&quot;2025-09-25T17:11:33.367+0800&quot;,&quot;caller&quot;:&quot;etcdmain/etcd.go:75&quot;,&quot;msg&quot;:&quot;failed to verify flags&quot;,&quot;error&quot;:&quot;error unmarshaling JSON: while decoding JSON: json: cannot unmarshal string into Go value of type embed.configYAML&quot;}
+[root@host-134-84-77-200 ~]# 
+</code></pre>
+<h2 id="etcd_6">检查etcd集群状态</h2>
+<pre><code class="language-shell">[root@host-134-84-77-200 ~]# cat check_etcd.sh 
+ ETCDCTL_API=3 etcdctl   --endpoints=https://134.84.77.200:1159,https://134.84.76.180:1159,https://134.84.78.84:1159   --cert=/etc/kubernetes/ssl/etcd_server.crt   --key=/etc/kubernetes/ssl/etcd_server.key   --cacert=/etc/kubernetes/ssl/ca.crt  member list  -w table
+
+  ETCDCTL_API=3 etcdctl   --endpoints=https://134.84.77.200:1159,https://134.84.76.180:1159,https://134.84.78.84:1159   --cert=/etc/kubernetes/ssl/etcd_server.crt   --key=/etc/kubernetes/ssl/etcd_server.key   --cacert=/etc/kubernetes/ssl/ca.crt  endpoint health  -w table
+
+   ETCDCTL_API=3 etcdctl   --endpoints=https://134.84.77.200:1159,https://134.84.76.180:1159,https://134.84.78.84:1159   --cert=/etc/kubernetes/ssl/etcd_server.crt   --key=/etc/kubernetes/ssl/etcd_server.key   --cacert=/etc/kubernetes/ssl/ca.crt  endpoint status  -w table
+[root@host-134-84-77-200 ~]# 
+[root@host-134-84-77-200 ~]# sh check_etcd.sh 
++------------------+---------+-------------+----------------------------+---------------------------------------------------+------------+
+|        ID        | STATUS  |    NAME     |         PEER ADDRS         |                   CLIENT ADDRS                    | IS LEARNER |
++------------------+---------+-------------+----------------------------+---------------------------------------------------+------------+
+| 21bc8eac53683297 | started | etcd_77_200 | https://134.84.77.200:2380 | https://127.0.0.1:1159,https://134.84.77.200:1159 |      false |
+| 5fe1cd5d0739c590 | started | etcd_76_180 | https://134.84.76.180:2380 | https://127.0.0.1:1159,https://134.84.76.180:1159 |      false |
+| c36ef91fe0394790 | started |  etcd_78_84 |  https://134.84.78.84:2380 |  https://127.0.0.1:1159,https://134.84.78.84:1159 |      false |
++------------------+---------+-------------+----------------------------+---------------------------------------------------+------------+
+{&quot;level&quot;:&quot;warn&quot;,&quot;ts&quot;:&quot;2025-09-25T17:13:47.180+0800&quot;,&quot;logger&quot;:&quot;client&quot;,&quot;caller&quot;:&quot;v3/retry_interceptor.go:62&quot;,&quot;msg&quot;:&quot;retrying of unary invoker failed&quot;,&quot;target&quot;:&quot;etcd-endpoints://0xc0005901c0/134.84.77.200:1159&quot;,&quot;attempt&quot;:0,&quot;error&quot;:&quot;rpc error: code = DeadlineExceeded desc = latest balancer error: last connection error: connection error: desc = \&quot;transport: Error while dialing dial tcp 134.84.77.200:1159: connect: connection refused\&quot;&quot;}
++----------------------------+--------+--------------+---------------------------+
+|          ENDPOINT          | HEALTH |     TOOK     |           ERROR           |
++----------------------------+--------+--------------+---------------------------+
+| https://134.84.76.180:1159 |   true |  11.228944ms |                           |
+|  https://134.84.78.84:1159 |   true |   11.46168ms |                           |
+| https://134.84.77.200:1159 |  false | 5.002421269s | context deadline exceeded |
++----------------------------+--------+--------------+---------------------------+
+Error: unhealthy cluster
+{&quot;level&quot;:&quot;warn&quot;,&quot;ts&quot;:&quot;2025-09-25T17:13:52.205+0800&quot;,&quot;logger&quot;:&quot;etcd-client&quot;,&quot;caller&quot;:&quot;v3/retry_interceptor.go:62&quot;,&quot;msg&quot;:&quot;retrying of unary invoker failed&quot;,&quot;target&quot;:&quot;etcd-endpoints://0xc00037ea80/134.84.77.200:1159&quot;,&quot;attempt&quot;:0,&quot;error&quot;:&quot;rpc error: code = DeadlineExceeded desc = latest balancer error: last connection error: connection error: desc = \&quot;transport: Error while dialing dial tcp 134.84.77.200:1159: connect: connection refused\&quot;&quot;}
+Failed to get the status of endpoint https://134.84.77.200:1159 (context deadline exceeded)
++----------------------------+------------------+---------+---------+-----------+------------+-----------+------------+--------------------+--------+
+|          ENDPOINT          |        ID        | VERSION | DB SIZE | IS LEADER | IS LEARNER | RAFT TERM | RAFT INDEX | RAFT APPLIED INDEX | ERRORS |
++----------------------------+------------------+---------+---------+-----------+------------+-----------+------------+--------------------+--------+
+| https://134.84.76.180:1159 | 5fe1cd5d0739c590 |   3.5.4 |   76 MB |      true |      false |       108 |  122835465 |          122835465 |        |
+|  https://134.84.78.84:1159 | c36ef91fe0394790 |   3.5.4 |   76 MB |     false |      false |       108 |  122835465 |          122835465 |        |
++----------------------------+------------------+---------+---------+-----------+------------+-----------+------------+--------------------+--------+
+[root@host-134-84-77-200 ~]# 
+
+
+</code></pre>
+<h2 id="networkmanager">NetworkManager状态</h2>
+<pre><code class="language-shell">[root@host-134-84-77-200 ~]# systemctl status NetworkManager
+● NetworkManager.service - Network Manager
+   Loaded: loaded (/usr/lib/systemd/system/NetworkManager.service; enabled; vendor preset: enabled)
+  Drop-In: /usr/lib/systemd/system/NetworkManager.service.d
+           └─NetworkManager-ovs.conf
+   Active: active (running) since Thu 2025-09-25 16:38:22 CST; 39min ago
+     Docs: man:NetworkManager(8)
+ Main PID: 37777 (NetworkManager)
+    Tasks: 4
+   Memory: 4.9M
+   CGroup: /system.slice/NetworkManager.service
+           ├─37777 /usr/sbin/NetworkManager --no-daemon
+           └─37797 /sbin/dhclient -d -q -sf /usr/libexec/nm-dhcp-helper -pf /var/run/NetworkManager/dhclient-enp4s3.pid -lf /var/lib/NetworkManager/dhclient-533eea9f-b33d-480b-828f-1ef3d511&gt;
+
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3411] manager: NetworkManager state is now CONNECTED_LOCAL
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3420] policy: set 'enp4s3' (enp4s3) as default for IPv4 routing and DNS
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3421] policy: set 'enp4s3' (enp4s3) as default for IPv6 routing and DNS
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3473] device (docker0): Activation: successful, device activated.
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3483] device (enp4s3): state change: ip-check -&gt; secondaries (reason 'none', sys-iface-state: 'assume')
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3485] device (enp4s3): state change: secondaries -&gt; activated (reason 'none', sys-iface-state: 'assume')
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3489] manager: NetworkManager state is now CONNECTED_SITE
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3496] device (enp4s3): Activation: successful, device activated.
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3502] manager: NetworkManager state is now CONNECTED_GLOBAL
+Sep 25 16:38:22 host-134-84-77-200 NetworkManager[37777]: &lt;info&gt;  [1758789502.3512] manager: startup complete
+[root@host-134-84-77-200 ~]# 
+</code></pre>
+<h2 id="_1">文件目录权限</h2>
+<pre><code class="language-shell">[root@host-134-84-77-200 ~]# ls -ltr /apps/etcd_data/etcd/
+total 0
+drwx------ 4 root root 29 Aug 27 18:20 member
+[root@host-134-84-77-200 ~]# ls -ltr /apps/etcd_data/
+total 0
+drwxr-xr-x 3 root root 20 Aug 27 18:20 etcd
+[root@host-134-84-77-200 ~]# ls -ltr /etc/etcd/etcd.conf 
+-rw-r--r-- 1 root root 1225 Sep 25 16:55 /etc/etcd/etcd.conf
+[root@host-134-84-77-200 ~]# 
+</code></pre>
+<h2 id="strace-systemctl-start-etcd">使用<code>strace systemctl start etcd</code>命令</h2>
+<blockquote>
+<p>查看发现资源临时不可用</p>
+</blockquote>
+<pre><code class="language-shell">ppoll([{fd=3, events=POLLIN}], 1, NULL, NULL, 8) = 1 ([{fd=3, revents=POLLIN}])
+recvmsg(3, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base=&quot;l\4\1\1\220\0\0\0\310\0\0\0\276\0\0\0\1\1o\0002\0\0\0&quot;, iov_len=24}], msg_iovlen=1, msg_controllen=0, msg_flags=MSG_CMSG_CLOEXEC}, MSG_DONTWAIT|MSG_CMSG_CLOEXEC) = 24
+recvmsg(3, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base=&quot;/org/freedesktop/systemd1/unit/d&quot;..., iov_len=328}], msg_iovlen=1, msg_controllen=0, msg_flags=MSG_CMSG_CLOEXEC}, MSG_DONTWAIT|MSG_CMSG_CLOEXEC) = 328
+recvmsg(3, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base=&quot;l\4\1\1d\3\0\0\311\0\0\0\276\0\0\0\1\1o\0002\0\0\0&quot;, iov_len=24}], msg_iovlen=1, msg_controllen=0, msg_flags=MSG_CMSG_CLOEXEC}, MSG_DONTWAIT|MSG_CMSG_CLOEXEC) = 24
+recvmsg(3, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base=&quot;/org/freedesktop/systemd1/unit/d&quot;..., iov_len=1052}], msg_iovlen=1, msg_controllen=0, msg_flags=MSG_CMSG_CLOEXEC}, MSG_DONTWAIT|MSG_CMSG_CLOEXEC) = 1052
+recvmsg(3, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base=&quot;l\4\1\1d\0\0\0\312\0\0\0\36\1\0\0\1\1o\0\220\0\0\0&quot;, iov_len=24}], msg_iovlen=1, msg_controllen=0, msg_flags=MSG_CMSG_CLOEXEC}, MSG_DONTWAIT|MSG_CMSG_CLOEXEC) = 24
+recvmsg(3, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base=&quot;/org/freedesktop/systemd1/unit/d&quot;..., iov_len=380}], msg_iovlen=1, msg_controllen=0, msg_flags=MSG_CMSG_CLOEXEC}, MSG_DONTWAIT|MSG_CMSG_CLOEXEC) = 380
+recvmsg(3, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base=&quot;l\4\1\1d\3\0\0\313\0\0\0\36\1\0\0\1\1o\0\220\0\0\0&quot;, iov_len=24}], msg_iovlen=1, msg_controllen=0, msg_flags=MSG_CMSG_CLOEXEC}, MSG_DONTWAIT|MSG_CMSG_CLOEXEC) = 24
+recvmsg(3, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base=&quot;/org/freedesktop/systemd1/unit/d&quot;..., iov_len=1148}], msg_iovlen=1, msg_controllen=0, msg_flags=MSG_CMSG_CLOEXEC}, MSG_DONTWAIT|MSG_CMSG_CLOEXEC) = 1148
+recvmsg(3, {msg_namelen=0}, MSG_DONTWAIT|MSG_CMSG_CLOEXEC) = -1 EAGAIN (Resource temporarily unavailable)
+</code></pre>
+<h2 id="_2">解决方案</h2>
+<h4 id="etcd_7"><font color="red"><strong>重启宿主机发现etcd服务启动正常！！！</strong></font></h4>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../kubernetes%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../kubernetes%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-link">
+        kubernetes故障
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../docker%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../docker%E6%95%85%E9%9A%9C/" class="btn btn-xs btn-link">
+        docker故障
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content"><p>Copyright &copy; 2025 WeiZhiwang | 
+<a href="https://github.com/weizhiwang221/cloud-native-journey" target="_blank" rel="noopener">View on GitHub</a>
+</p>
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
